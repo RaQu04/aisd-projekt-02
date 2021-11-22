@@ -91,9 +91,9 @@ namespace aisd_projekt_02
         {
             fillArrayList(gornyZakres, arrayList);
 
-            for(int i = 2; i <= SqrtBig(gornyZakres); i++)
+            for(Int64 i = 2; i <= SqrtBig(gornyZakres); i++)
             {
-                for(int j = i; j<= gornyZakres; j+=i)
+                for(Int64 j = i; j<= gornyZakres; j+=i)
                 {
                     if (j != i) arrayList.Remove(j);
                 }
@@ -105,7 +105,7 @@ namespace aisd_projekt_02
 
         private static void fillArrayList(BigInteger gornyZakres, ArrayList arrayList)
         {
-            for (int i = 2; i <= gornyZakres; i++)
+            for (Int64 i = 2; i <= gornyZakres; i++)
             {
                 arrayList.Add(i);
             }
@@ -150,21 +150,27 @@ namespace aisd_projekt_02
             { 101, 1009, 10091, 100913, 1009139, 10091401, 100914061,1009140611, 10091406133, 100914061337, 1009140613399 };
             //{ 100913, 1009139, 10091401, 100914061, 1009140611, 10091406133, 100914061337, 1009140613399 };
 
-            Console.WriteLine("Liczba\tPrzykładowy\tPrzyzwoity\tOptymalny");
+            //Console.WriteLine("Liczba\tPrzykładowy\tPrzyzwoity\tOptymalny");
 
-            
-        
 
-            foreach (BigInteger var in PrimeNums)
+            ArrayList tmp = sitoEratostenesa(1009);
+
+            foreach(var value in tmp)
+            {
+                Console.Write(value + " ");
+            }
+
+           /* foreach (BigInteger var in PrimeNums)
             {
                 AlgorytmPrzykładowy(var);
                 Console.Write(var + "\t" + DivsNum);
                 AlgorytmPrzyzwoity(var);
                 Console.Write("\t" + DivsNum);
-                AlgorytmOptymalny(var, getTab(sitoEratostenesa(var+1)));
+                AlgorytmOptymalny(var, getTab(sitoEratostenesa(var)));
                 Console.Write("\t" + DivsNum);
                 Console.WriteLine();
             }
+           */
         }
     }
 }
