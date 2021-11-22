@@ -34,9 +34,35 @@ namespace aisd_projekt_02
                 }
             return true;
         }
+
+        static bool AlgorytmOptymalnyProsty(BigInteger Number, ArrayList Vector)
+        {
+            DivsNum = 0;
+            for (int i = 0; i <= Vector.Capacity; i++)
+            {
+                DivsNum++;
+                if (Number == Vector.IndexOf(i))
+                {
+                    return true;
+                }               
+            }
+            return false;
+        }
+
+        static BigInteger[] getTab(ArrayList list)
+        {
+            BigInteger[] tab = new BigInteger[list.Capacity];
+            for(int i = 0; i < tab.Length; i++)
+            {
+                tab[i] = list.IndexOf(i);
+            }
+            return tab;
+        }
+
         static bool AlgorytmOptymalny(BigInteger Number, BigInteger[] Vector)
         {
             DivsNum = 0;
+            sitoEratostenesa(Number);
             int Left = 0, Right = Vector.Length - 1, Middle;
             while (Left <= Right)
             {
@@ -63,9 +89,6 @@ namespace aisd_projekt_02
         }
         static ArrayList sitoEratostenesa(BigInteger gornyZakres)
         {
-            BigInteger dokad = SqrtBig(gornyZakres);
-            
-            
             fillArrayList(gornyZakres, arrayList);
 
             for(int i = 2; i <= SqrtBig(gornyZakres); i++)
@@ -138,7 +161,7 @@ namespace aisd_projekt_02
                 Console.Write(var + "\t" + DivsNum);
                 AlgorytmPrzyzwoity(var);
                 Console.Write("\t" + DivsNum);
-                AlgorytmOptymalny(var, new BigInteger[] {1, 2, 3});
+                AlgorytmOptymalny(var, getTab(sitoEratostenesa(var+1)));
                 Console.Write("\t" + DivsNum);
                 Console.WriteLine();
             }
