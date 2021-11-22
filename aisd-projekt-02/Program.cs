@@ -8,45 +8,49 @@ namespace aisd_projekt_02
     {
     static ulong DivsNum;
     static ArrayList arrayList = new ArrayList();
+
+        public static ulong DivsNum1 { get => DivsNum; set => DivsNum = value; }
+        public static ArrayList ArrayList { get => arrayList; set => arrayList = value; }
+
         static bool AlgorytmPrzykładowy(BigInteger Num)
     {
-            DivsNum = 1; //ustawiamy wartość jeden, ponieważ jedna operacja zostanie wykonana w linii 14
+            DivsNum1 = 1; //ustawiamy wartość jeden, ponieważ jedna operacja zostanie wykonana w linii 14
             if (Num < 2) return false;
             else if (Num < 4) return true;
             else if (Num % 2 == 0) return false;
             else for (BigInteger u = 3; u < Num / 2; u += 2)
                 {
-                    DivsNum++;
+                    DivsNum1++;
                     if (Num % u == 0) return false;
                 }
             return true;
         }
         static bool AlgorytmPrzyzwoity(BigInteger Num)
         {
-            DivsNum = 1; //ustawiamy wartość jeden, ponieważ jedna operacja zostanie wykonana
+            DivsNum1 = 1; //ustawiamy wartość jeden, ponieważ jedna operacja zostanie wykonana
             if (Num < 2) return false;
             else if (Num < 4) return true;
             else if (Num % 2 == 0) return false;
             else for (BigInteger u = 3; u < SqrtBig(Num); u += 2)
                 {
-                    DivsNum++;
+                    DivsNum1++;
                     if (Num % u == 0) return false;
                 }
             return true;
         }
 
-        static bool AlgorytmOptymalnyProsty(BigInteger Number, ArrayList Vector)
+        static bool AlgorytmOptymalnyProsty(BigInteger number)
         {
-            DivsNum = 0;
-            for (int i = 0; i <= Vector.Capacity; i++)
+            DivsNum1 = 0; //ustawiamy wartość jeden, ponieważ jedna operacja zostanie wykonana w linii 14
+            ArrayList.Clear();
+            sitoEratostenesa(number);
+            foreach (BigInteger var in ArrayList)
             {
-                DivsNum++;
-                if (Number == Vector.IndexOf(i))
-                {
-                    return true;
-                }               
-            }
-            return false;
+                if (number % var == 0) return false;
+            DivsNum1++;
+              }
+
+            return true;
         }
 
         static BigInteger[] getTab(ArrayList list)
@@ -61,7 +65,7 @@ namespace aisd_projekt_02
 
         static bool AlgorytmOptymalny(BigInteger Number, BigInteger[] Vector)
         {
-            DivsNum = 0;
+            DivsNum1 = 0;
             sitoEratostenesa(Number);
             int Left = 0, Right = Vector.Length - 1, Middle;
             while (Left <= Right)
@@ -69,12 +73,12 @@ namespace aisd_projekt_02
                 Middle = (Left + Right) / 2;
                 if (Vector[Middle] == Number)
                 {
-                    DivsNum++;
+                    DivsNum1++;
                     return true;
                 }
                 else
                 {
-                    DivsNum++;
+                    DivsNum1++;
                     if (Vector[Middle] > Number)
                     {
                         Right = Middle - 1;
@@ -89,23 +93,23 @@ namespace aisd_projekt_02
         }
         static ArrayList sitoEratostenesa(BigInteger gornyZakres)
         {
-            fillArrayList(gornyZakres, arrayList);
+            fillArrayList(SqrtBig(gornyZakres), ArrayList);
 
-            for(Int64 i = 2; i <= SqrtBig(gornyZakres); i++)
+            for(BigInteger i = 2; i <= SqrtBig(gornyZakres); i++)
             {
-                for(Int64 j = i; j<= gornyZakres; j+=i)
+                for(BigInteger j = i; j<= gornyZakres; j+=i)
                 {
-                    if (j != i) arrayList.Remove(j);
+                    if (j != i) ArrayList.Remove(j);
                 }
             }
 
-            return arrayList; 
+            return ArrayList; 
             
         }
 
         private static void fillArrayList(BigInteger gornyZakres, ArrayList arrayList)
         {
-            for (Int64 i = 2; i <= gornyZakres; i++)
+            for (BigInteger i = 2; i <= gornyZakres; i++)
             {
                 arrayList.Add(i);
             }
@@ -150,27 +154,29 @@ namespace aisd_projekt_02
             { 101, 1009, 10091, 100913, 1009139, 10091401, 100914061,1009140611, 10091406133, 100914061337, 1009140613399 };
             //{ 100913, 1009139, 10091401, 100914061, 1009140611, 10091406133, 100914061337, 1009140613399 };
 
-            //Console.WriteLine("Liczba\tPrzykładowy\tPrzyzwoity\tOptymalny");
+            Console.WriteLine("Liczba\t\tPrzykładowy\tPrzyzwoity\tOptymalny");
 
 
-            ArrayList tmp = sitoEratostenesa(1009);
+            //ArrayList tmp = sitoEratostenesa(1009);
 
-            foreach(var value in tmp)
-            {
-                Console.Write(value + " ");
-            }
+            //foreach(var value in tmp)
+            //{
+            //    Console.Write(value + " ");
+            //}
 
-           /* foreach (BigInteger var in PrimeNums)
+            //AlgorytmOptymalnyProsty(1009);
+
+            foreach (BigInteger var in PrimeNums)
             {
                 AlgorytmPrzykładowy(var);
-                Console.Write(var + "\t" + DivsNum);
+                Console.Write(var + "\t\t" + DivsNum1);
                 AlgorytmPrzyzwoity(var);
-                Console.Write("\t" + DivsNum);
-                AlgorytmOptymalny(var, getTab(sitoEratostenesa(var)));
-                Console.Write("\t" + DivsNum);
+                Console.Write("\t\t" + DivsNum1);
+                AlgorytmOptymalnyProsty(var);
+                Console.Write("\t\t" + DivsNum1);
                 Console.WriteLine();
             }
-           */
+
         }
     }
 }
