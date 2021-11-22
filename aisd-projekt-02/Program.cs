@@ -7,7 +7,8 @@ namespace aisd_projekt_02
     class Program
     {
     static ulong DivsNum;
-    static bool AlgorytmPrzykładowy(BigInteger Num)
+    static ArrayList arrayList = new ArrayList();
+        static bool AlgorytmPrzykładowy(BigInteger Num)
     {
             DivsNum = 1; //ustawiamy wartość jeden, ponieważ jedna operacja zostanie wykonana w linii 14
             if (Num < 2) return false;
@@ -33,16 +34,38 @@ namespace aisd_projekt_02
                 }
             return true;
         }
-        static bool AlgorytmOptymalny(BigInteger Num)
+        static bool AlgorytmOptymalny(BigInteger Number, BigInteger[] Vector)
         {
+            DivsNum = 0;
+            int Left = 0, Right = Vector.Length - 1, Middle;
+            while (Left <= Right)
+            {
+                Middle = (Left + Right) / 2;
+                if (Vector[Middle] == Number)
+                {
+                    DivsNum++;
+                    return true;
+                }
+                else
+                {
+                    DivsNum++;
+                    if (Vector[Middle] > Number)
+                    {
+                        Right = Middle - 1;
+                    }
+                    else
+                    {
+                        Left = Middle + 1;
+                    }
+                }
+            }
             return false;
         }
-
-        static void sitoEratostenesa(BigInteger gornyZakres)
+        static ArrayList sitoEratostenesa(BigInteger gornyZakres)
         {
             BigInteger dokad = SqrtBig(gornyZakres);
             
-            ArrayList arrayList = new ArrayList();
+            
             fillArrayList(gornyZakres, arrayList);
 
             for(int i = 2; i <= SqrtBig(gornyZakres); i++)
@@ -53,12 +76,8 @@ namespace aisd_projekt_02
                 }
             }
 
-            foreach(var item in arrayList)
-            {
-                Console.Write(item + " ");
-            }
+            return arrayList; 
             
-
         }
 
         private static void fillArrayList(BigInteger gornyZakres, ArrayList arrayList)
@@ -103,27 +122,26 @@ namespace aisd_projekt_02
         static void Main(string[] args)
         {
 
-            sitoEratostenesa(60);
-
 
             BigInteger[] PrimeNums = new BigInteger[]
-
             { 101, 1009, 10091, 100913, 1009139, 10091401, 100914061,1009140611, 10091406133, 100914061337, 1009140613399 };
             //{ 100913, 1009139, 10091401, 100914061, 1009140611, 10091406133, 100914061337, 1009140613399 };
 
-           // Console.WriteLine("Liczba\tPrzykładowy\tPrzyzwoity\tOptymalny");
+            Console.WriteLine("Liczba\tPrzykładowy\tPrzyzwoity\tOptymalny");
 
             
         
 
-           /* foreach (BigInteger var in PrimeNums)
+            foreach (BigInteger var in PrimeNums)
             {
                 AlgorytmPrzykładowy(var);
                 Console.Write(var + "\t" + DivsNum);
                 AlgorytmPrzyzwoity(var);
                 Console.Write("\t" + DivsNum);
+                AlgorytmOptymalny(var, new BigInteger[] {1, 2, 3});
+                Console.Write("\t" + DivsNum);
                 Console.WriteLine();
-            }*/
+            }
         }
     }
 }
