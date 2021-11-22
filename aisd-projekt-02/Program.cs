@@ -41,7 +41,7 @@ namespace aisd_projekt_02
 
         static bool AlgorytmOptymalnyProsty(BigInteger number)
         {
-            DivsNum1 = 0; //ustawiamy wartość jeden, ponieważ jedna operacja zostanie wykonana w linii 14
+            DivsNum1 = 0; 
             ArrayList.Clear();
             sitoEratostenesa(number);
             foreach (BigInteger var in ArrayList)
@@ -53,44 +53,7 @@ namespace aisd_projekt_02
             return true;
         }
 
-        static BigInteger[] getTab(ArrayList list)
-        {
-            BigInteger[] tab = new BigInteger[list.Capacity];
-            for(int i = 0; i < tab.Length; i++)
-            {
-                tab[i] = list.IndexOf(i);
-            }
-            return tab;
-        }
-
-        static bool AlgorytmOptymalny(BigInteger Number, BigInteger[] Vector)
-        {
-            DivsNum1 = 0;
-            sitoEratostenesa(Number);
-            int Left = 0, Right = Vector.Length - 1, Middle;
-            while (Left <= Right)
-            {
-                Middle = (Left + Right) / 2;
-                if (Vector[Middle] == Number)
-                {
-                    DivsNum1++;
-                    return true;
-                }
-                else
-                {
-                    DivsNum1++;
-                    if (Vector[Middle] > Number)
-                    {
-                        Right = Middle - 1;
-                    }
-                    else
-                    {
-                        Left = Middle + 1;
-                    }
-                }
-            }
-            return false;
-        }
+      
         static ArrayList sitoEratostenesa(BigInteger gornyZakres)
         {
             fillArrayList(SqrtBig(gornyZakres), ArrayList);
