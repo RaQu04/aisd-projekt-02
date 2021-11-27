@@ -9,31 +9,29 @@ namespace aisd_projekt_02
     static ulong DivsNum;
     static ArrayList arrayList = new ArrayList();
 
-        public static ulong DivsNum1 { get => DivsNum; set => DivsNum = value; }
-        public static ArrayList ArrayList { get => arrayList; set => arrayList = value; }
-
+       
         static bool AlgorytmPrzykładowy(BigInteger Num)
-    {
-            DivsNum1 = 1; //ustawiamy wartość jeden, ponieważ jedna operacja zostanie wykonana w linii 14
+        {
+            DivsNum = 1; //ustawiamy wartość jeden, ponieważ jedna operacja zostanie wykonana w linii 14
             if (Num < 2) return false;
             else if (Num < 4) return true;
             else if (Num % 2 == 0) return false;
             else for (BigInteger u = 3; u < Num / 2; u += 2)
                 {
-                    DivsNum1++;
+                    DivsNum++;
                     if (Num % u == 0) return false;
                 }
             return true;
         }
         static bool AlgorytmPrzyzwoity(BigInteger Num)
         {
-            DivsNum1 = 1; //ustawiamy wartość jeden, ponieważ jedna operacja zostanie wykonana
+            DivsNum = 1; //ustawiamy wartość jeden, ponieważ jedna operacja zostanie wykonana
             if (Num < 2) return false;
             else if (Num < 4) return true;
             else if (Num % 2 == 0) return false;
             else for (BigInteger u = 3; u < SqrtBig(Num); u += 2)
                 {
-                    DivsNum1++;
+                    DivsNum++;
                     if (Num % u == 0) return false;
                 }
             return true;
@@ -41,32 +39,32 @@ namespace aisd_projekt_02
 
         static bool AlgorytmOptymalnyProsty(BigInteger number)
         {
-            DivsNum1 = 0; 
-            ArrayList.Clear();
+            DivsNum = 0; 
+            arrayList.Clear();
             sitoEratostenesa(number);
-            foreach (BigInteger var in ArrayList)
+            foreach (BigInteger var in arrayList)
             {
-                if (number % var == 0) return false;
-            DivsNum1++;
+                if (number % var == 0) return true;
+                DivsNum++;
               }
 
-            return true;
+            return false;
         }
 
       
         static ArrayList sitoEratostenesa(BigInteger gornyZakres)
         {
-            fillArrayList(SqrtBig(gornyZakres), ArrayList);
+            fillArrayList(SqrtBig(gornyZakres), arrayList);
 
             for(BigInteger i = 2; i <= SqrtBig(gornyZakres); i++)
             {
                 for(BigInteger j = i; j<= gornyZakres; j+=i)
                 {
-                    if (j != i) ArrayList.Remove(j);
+                    if (j != i) arrayList.Remove(j);
                 }
             }
 
-            return ArrayList; 
+            return arrayList; 
             
         }
 
@@ -132,11 +130,11 @@ namespace aisd_projekt_02
             foreach (BigInteger var in PrimeNums)
             {
                 AlgorytmPrzykładowy(var);
-                Console.Write(var + "\t\t" + DivsNum1);
+                Console.Write(var + "\t\t" + DivsNum);
                 AlgorytmPrzyzwoity(var);
-                Console.Write("\t\t" + DivsNum1);
+                Console.Write("\t\t" + DivsNum);
                 AlgorytmOptymalnyProsty(var);
-                Console.Write("\t\t" + DivsNum1);
+                Console.Write("\t\t" + DivsNum);
                 Console.WriteLine();
             }
 
