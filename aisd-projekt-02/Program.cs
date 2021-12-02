@@ -12,7 +12,7 @@ namespace aisd_projekt_02
        
         static bool AlgorytmPrzykładowy(BigInteger Num)
         {
-            DivsNum = 1; //ustawiamy wartość jeden, ponieważ jedna operacja zostanie wykonana w linii 14
+            DivsNum = 1; //ustawiamy wartość jeden, ponieważ jedna operacja zostanie wykonana w linii 18
             if (Num < 2) return false;
             else if (Num < 4) return true;
             else if (Num % 2 == 0) return false;
