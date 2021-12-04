@@ -1,5 +1,5 @@
 ﻿using System;
-using System.Collections;
+using System.Collections.Generic;
 using System.Numerics;
 
 namespace aisd_projekt_02
@@ -7,7 +7,7 @@ namespace aisd_projekt_02
     class Program
     {
         static ulong DivsNum;
-        static ArrayList primeArray = new ArrayList();
+        static Dictionary<BigInteger, Boolean> primeDictionary = new Dictionary<BigInteger, bool>();
        
         static bool AlgorytmPrzykładowy(BigInteger Num)
         {
@@ -40,37 +40,34 @@ namespace aisd_projekt_02
         static bool AlgorytmOptymalnyProsty(BigInteger number)
         {
             DivsNum = 0;
-            primeArray.Clear();
+            primeDictionary.Clear();
             sitoEratostenesa(number);
-            foreach (BigInteger var in primeArray)
+            foreach (KeyValuePair<BigInteger, Boolean> entry in primeDictionary)
             {
-                if (number % var == 0) return true;
+                if (number % entry.Key == 0) return false;
                 DivsNum++;
             }
 
-            return false;
+            return true;
         }
 
-        static ArrayList sitoEratostenesa(BigInteger gornyZakres)
+        static void sitoEratostenesa(BigInteger gornyZakres)
         {
-            fillArrayList(SqrtBig(gornyZakres), primeArray);
+            fillPrimeDictionary(SqrtBig(gornyZakres));
 
             for(BigInteger i = 2; i <= SqrtBig(gornyZakres); i++)
             {
-                for(BigInteger j = i; j<= gornyZakres; j+=i)
-                {
-                    if (j != i) primeArray.Remove(j);
-                }
+                if (primeDictionary.ContainsKey(i) && primeDictionary[i])
+                    for (BigInteger j = i; j <= gornyZakres; j += i)
+                        if (j != i) primeDictionary.Remove(j);
             }
-
-            return primeArray; 
         }
 
-        private static void fillArrayList(BigInteger gornyZakres, ArrayList array)
+        private static void fillPrimeDictionary(BigInteger gornyZakres)
         {
             for (BigInteger i = 2; i <= gornyZakres; i++)
             {
-                array.Add(i);
+                primeDictionary[i] = true;
             }
         }
 
