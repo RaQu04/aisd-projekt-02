@@ -6,9 +6,8 @@ namespace aisd_projekt_02
 {
     class Program
     {
-    static ulong DivsNum;
-    static ArrayList arrayList = new ArrayList();
-
+        static ulong DivsNum;
+        static ArrayList primeArray = new ArrayList();
        
         static bool AlgorytmPrzykładowy(BigInteger Num)
         {
@@ -23,6 +22,7 @@ namespace aisd_projekt_02
                 }
             return true;
         }
+
         static bool AlgorytmPrzyzwoity(BigInteger Num)
         {
             DivsNum = 1; //ustawiamy wartość jeden, ponieważ jedna operacja zostanie wykonana
@@ -39,43 +39,40 @@ namespace aisd_projekt_02
 
         static bool AlgorytmOptymalnyProsty(BigInteger number)
         {
-            DivsNum = 0; 
-            arrayList.Clear();
+            DivsNum = 0;
+            primeArray.Clear();
             sitoEratostenesa(number);
-            foreach (BigInteger var in arrayList)
+            foreach (BigInteger var in primeArray)
             {
                 if (number % var == 0) return true;
                 DivsNum++;
-              }
+            }
 
             return false;
         }
 
-      
         static ArrayList sitoEratostenesa(BigInteger gornyZakres)
         {
-            fillArrayList(SqrtBig(gornyZakres), arrayList);
+            fillArrayList(SqrtBig(gornyZakres), primeArray);
 
             for(BigInteger i = 2; i <= SqrtBig(gornyZakres); i++)
             {
                 for(BigInteger j = i; j<= gornyZakres; j+=i)
                 {
-                    if (j != i) arrayList.Remove(j);
+                    if (j != i) primeArray.Remove(j);
                 }
             }
 
-            return arrayList; 
-            
+            return primeArray; 
         }
 
-        private static void fillArrayList(BigInteger gornyZakres, ArrayList arrayList)
+        private static void fillArrayList(BigInteger gornyZakres, ArrayList array)
         {
             for (BigInteger i = 2; i <= gornyZakres; i++)
             {
-                arrayList.Add(i);
+                array.Add(i);
             }
         }
-
 
         static Boolean isSqrt(BigInteger n, BigInteger root)
         {
@@ -87,7 +84,6 @@ namespace aisd_projekt_02
 
         static BigInteger SqrtBig(BigInteger n)
         {
-
             if (n == 0) return 0;
             if (n > 0)
             {
@@ -104,20 +100,16 @@ namespace aisd_projekt_02
             }
 
             throw new ArithmeticException("NaN");
-
         }
 
         static void Main(string[] args)
         {
-
-
             BigInteger[] PrimeNums = new BigInteger[]
             { 101, 1009, 10091, 100913, 1009139, 10091401, 100914061,1009140611, 10091406133, 100914061337, 1009140613399 };
-           // { 100913, 1009139, 10091401, 100914061, 1009140611, 10091406133, 100914061337, 1009140613399 };
+            // { 100913, 1009139, 10091401, 100914061, 1009140611, 10091406133, 100914061337, 1009140613399 };
 
             Console.WriteLine("Liczba\t\tPrzykładowy\tPrzyzwoity\tOptymalny");
             
-
             //ArrayList tmp = sitoEratostenesa(1009);
 
             //foreach(var value in tmp)
@@ -137,7 +129,6 @@ namespace aisd_projekt_02
                 Console.Write("\t\t" + DivsNum);
                 Console.WriteLine();
             }
-
         }
     }
 }
